@@ -1,5 +1,4 @@
 import sqlite3
-from urllib.parse import urlparse, urlunparse
 
 from flask import current_app, g
 
@@ -18,11 +17,7 @@ def is_postgres():
 def normalize_database_url(database_url):
     if database_url.startswith("postgres://"):
         database_url = "postgresql://" + database_url[len("postgres://") :]
-    parsed = urlparse(database_url)
-    query = parsed.query
-    if "sslmode=" not in query:
-        query = f"{query}&sslmode=require" if query else "sslmode=require"
-    return urlunparse(parsed._replace(query=query))
+    return database_url
 
 
 def get_db():
