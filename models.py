@@ -129,13 +129,12 @@ def ensure_user_role_column(db):
 def seed_programs(db):
     if fetch_count(db, "programs") > 0:
         return
-    db.executemany(
-        f"""
-        INSERT INTO programs (title, category, location, description, goal, status)
-        VALUES ({placeholders(6)})
-        """,
-        SEED_PROGRAMS,
-    )
+    insert_sql = f"""
+    INSERT INTO programs (title, category, location, description, goal, status)
+    VALUES ({placeholders(6)})
+    """
+    for row in SEED_PROGRAMS:
+        execute(db, insert_sql, row)
 
 
 def create_admin_from_env(db):
