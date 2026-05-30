@@ -26,16 +26,7 @@ python -m pip install -r requirements.txt
 python app.py
 ```
 
-Open `http://127.0.0.1:5000` in your browser.
-
 The first account created becomes the admin. You can also create or promote an admin on startup with:
-
-```powershell
-$env:ADMIN_EMAIL="admin@example.com"
-$env:ADMIN_PASSWORD="change-this-password"
-$env:ADMIN_NAME="She Can Admin"
-python app.py
-```
 
 Or create/promote an admin from the terminal:
 
@@ -44,16 +35,3 @@ $env:DATABASE_URL=""
 flask --app app create-admin
 ```
 
-After that, open `http://127.0.0.1:5000/admin` and log in with the admin account.
-
-## Render Postgres
-
-1. Create a Render Postgres database.
-2. In your Render web service, add `DATABASE_URL` using the database Internal URL when the service is in the same region.
-3. Add a strong `SECRET_KEY`.
-4. Add `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and optionally `ADMIN_NAME` for the first admin.
-5. Use this start command:
-
-```bash
-gunicorn app:app
-```
