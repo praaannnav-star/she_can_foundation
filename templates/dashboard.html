@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | She Can Foundation{% endblock %}
+{% block content %}
+<section class="dashboard-top">
+  <div>
+    <p class="eyebrow">{% if g.user.role == 'admin' %}Admin Panel{% else %}Dashboard{% endif %}</p>
+    <h1>{% if g.user.role == 'admin' %}Program management{% else %}Foundation programs{% endif %}</h1>
+    <p>Welcome, {{ g.user.name }}{% if g.user.role == 'admin' %}. Manage foundation initiatives, users, and donor notes.{% else %}. Here are the current foundation initiatives.{% endif %}</p>
+  </div>
+  {% if g.user.role == 'admin' %}
+    <a class="button" href="{{ url_for('main.create_program') }}">New Program</a>
+  {% endif %}
+</section>
+
+{% if stats %}
+<section class="stats-grid">
+  <article><span>{{ stats.programs }}</span><strong>Programs</strong></article>
+  <article><span>{{ stats.donors }}</span><strong>Donor notes</strong></article>
+  <article><span>{{ stats.users }}</span><strong>Users</strong></article>
+</section>
+{% endif %}
+
+<section class="table-section">
+  <h2>Programs</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for program in programs %}
+          <tr>
+            <td>
+              <strong>{{ program.title }}</strong>
+              <span>{{ program.goal }}</span>
+            </td>
+            <td>{{ program.category }}</td>
+            <td>{{ program.location }}</td>
+            <td><span class="pill">{{ program.status }}</span></td>
+            <td class="actions">
+              {% if g.user.role == 'admin' %}
+                <a href="{{ url_for('main.edit_program', program_id=program.id) }}">Edit</a>
+                <form method="post" action="{{ url_for('main.delete_program', program_id=program.id) }}">
+                  <button type="submit">Delete</button>
+                </form>
+              {% else %}
+                <span>View only</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% if g.user.role == 'admin' %}
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Recent</p>
+    <h2>Donor notes</h2>
+  </div>
+  <div class="card-grid small">
+    {% for donor in donors %}
+      <article class="card">
+        <h3>{{ donor.name }}</h3>
+        <p>{{ donor.email }}</p>
+        <strong>{{ donor.amount }}</strong>
+        {% if donor.message %}<p>{{ donor.message }}</p>{% endif %}
+      </article>
+    {% else %}
+      <p>No donor notes yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="table-section">
+  <h2>Users</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Joined</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td><strong>{{ user.name }}</strong></td>
+            <td>{{ user.email }}</td>
+            <td><span class="pill">{{ user.role }}</span></td>
+            <td>{{ user.created_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

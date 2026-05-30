@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Home | She Can Foundation{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Together We Can Change</p>
+    <h1>Helping every woman thrive with dignity, opportunity, and support.</h1>
+    <p>She Can Foundation is a registered NGO focused on women empowerment, local action, health awareness, skill training, and social transformation.</p>
+    <div class="hero-actions">
+      <a class="button" href="{{ url_for('main.donate') }}">Donate Now</a>
+      <a class="button button-light" href="{{ url_for('main.about') }}">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <img src="{{ url_for('static', filename='img/she.jpeg') }}" alt="She Can Foundation logo">
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Programs</p>
+    <h2>Current foundation work</h2>
+  </div>
+  <div class="card-grid">
+    {% for program in programs %}
+      <article class="card">
+        <span class="pill">{{ program.status }}</span>
+        <h3>{{ program.title }}</h3>
+        <p>{{ program.description }}</p>
+        <dl>
+          <dt>Category</dt><dd>{{ program.category }}</dd>
+          <dt>Goal</dt><dd>{{ program.goal }}</dd>
+        </dl>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="impact-band">
+  <div>
+    <h2>Join our team</h2>
+    <p>Volunteers can contribute time, ideas, education support, health awareness, or crisis support to help create lasting change.</p>
+  </div>
+  <a class="button button-dark" href="{{ url_for('main.signup') }}">Get Started</a>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Login | She Can Foundation{% endblock %}
+{% block content %}
+<section class="auth-shell">
+  <form class="form-card auth-card" method="post">
+    <p class="eyebrow">Welcome Back</p>
+    <h1>Login</h1>
+    <label>Email
+      <input type="email" name="email" value="{{ form.email or '' }}" required>
+      {% if errors.email %}<span class="field-error">{{ errors.email }}</span>{% endif %}
+    </label>
+    <label>Password
+      <input type="password" name="password" required>
+      {% if errors.password %}<span class="field-error">{{ errors.password }}</span>{% endif %}
+    </label>
+    <button class="button" type="submit">Login</button>
+    <p>New here? <a href="{{ url_for('main.signup') }}">Create an account</a></p>
+  </form>
+</section>
+{% endblock %}

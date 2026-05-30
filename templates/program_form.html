@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} Program | She Can Foundation{% endblock %}
+{% block content %}
+<section class="auth-shell wide">
+  <form class="form-card program-card" method="post">
+    <p class="eyebrow">{{ action }} Program</p>
+    <h1>{{ action }} foundation initiative</h1>
+    <div class="form-grid">
+      <label>Title
+        <input type="text" name="title" value="{{ form.title or '' }}" minlength="4" required>
+        {% if errors.title %}<span class="field-error">{{ errors.title }}</span>{% endif %}
+      </label>
+      <label>Category
+        <select name="category" required>
+          {% for category in categories %}
+            <option value="{{ category }}" {% if form.category == category %}selected{% endif %}>{{ category }}</option>
+          {% endfor %}
+        </select>
+        {% if errors.category %}<span class="field-error">{{ errors.category }}</span>{% endif %}
+      </label>
+      <label>Location
+        <input type="text" name="location" value="{{ form.location or '' }}" minlength="2" required>
+        {% if errors.location %}<span class="field-error">{{ errors.location }}</span>{% endif %}
+      </label>
+      <label>Status
+        <select name="status" required>
+          {% for status in statuses %}
+            <option value="{{ status }}" {% if form.status == status %}selected{% endif %}>{{ status }}</option>
+          {% endfor %}
+        </select>
+        {% if errors.status %}<span class="field-error">{{ errors.status }}</span>{% endif %}
+      </label>
+    </div>
+    <label>Goal
+      <input type="text" name="goal" value="{{ form.goal or '' }}" minlength="8" required>
+      {% if errors.goal %}<span class="field-error">{{ errors.goal }}</span>{% endif %}
+    </label>
+    <label>Description
+      <textarea name="description" rows="5" minlength="20" required>{{ form.description or '' }}</textarea>
+      {% if errors.description %}<span class="field-error">{{ errors.description }}</span>{% endif %}
+    </label>
+    <div class="hero-actions">
+      <button class="button" type="submit">{{ action }} Program</button>
+      <a class="button button-light" href="{{ url_for('main.dashboard') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

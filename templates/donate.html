@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Donate | She Can Foundation{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="eyebrow">Donate</p>
+  <h1>Her period should not end her education.</h1>
+  <p>Your support can help provide sanitary pads, awareness workshops, dignity kits, and school continuity for girls.</p>
+</section>
+
+<section class="donate-layout">
+  <div class="donation-options">
+    <h2>One small gift can protect dignity</h2>
+    <ul>
+      <li>INR 500 can help 5 girls receive pads for 1 month.</li>
+      <li>INR 1,500 can support 15 girls for 3 months.</li>
+      <li>INR 5,000 can help 25 girls continue school with dignity.</li>
+      <li>INR 10,000 can support an entire classroom.</li>
+    </ul>
+  </div>
+
+  <form class="form-card" method="post">
+    <h2>Save a support note</h2>
+    <label>Name
+      <input type="text" name="name" value="{{ form.name or '' }}" minlength="2" required>
+      {% if errors.name %}<span class="field-error">{{ errors.name }}</span>{% endif %}
+    </label>
+    <label>Email
+      <input type="email" name="email" value="{{ form.email or '' }}" required>
+      {% if errors.email %}<span class="field-error">{{ errors.email }}</span>{% endif %}
+    </label>
+    <label>Amount
+      <input type="text" name="amount" value="{{ form.amount or '' }}" placeholder="INR 500" required>
+      {% if errors.amount %}<span class="field-error">{{ errors.amount }}</span>{% endif %}
+    </label>
+    <label>Message
+      <textarea name="message" rows="4" maxlength="300">{{ form.message or '' }}</textarea>
+      {% if errors.message %}<span class="field-error">{{ errors.message }}</span>{% endif %}
+    </label>
+    <button class="button" type="submit">Submit</button>
+  </form>
+</section>
+{% endblock %}

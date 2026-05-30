@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}She Can Foundation{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="{{ url_for('main.home') }}">
+        <span class="brand-mark">SC</span>
+        <span>She Can Foundation</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
+      <div class="nav-links">
+        <a href="{{ url_for('main.home') }}">Home</a>
+        <a href="{{ url_for('main.about') }}">Our Story</a>
+        <a href="{{ url_for('main.certificate') }}">Certificate</a>
+        <a href="{{ url_for('main.donate') }}">Donate</a>
+        <a href="{{ url_for('main.admin_panel') }}">Admin</a>
+        {% if g.user %}
+          {% if g.user.role != 'admin' %}
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+          {% endif %}
+          <a class="button button-light" href="{{ url_for('main.logout') }}">Logout</a>
+        {% else %}
+          <a href="{{ url_for('main.login') }}">Login</a>
+          <a class="button" href="{{ url_for('main.signup') }}">Sign Up</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>She Can Foundation</strong>
+      <p>Empowering women through support, resources, training, and advocacy.</p>
+    </div>
+    <div>
+      <p>president@shecanfoundation.org</p>
+      <p>+91-8283841830</p>
+    </div>
+  </footer>
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
