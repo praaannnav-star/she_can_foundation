@@ -137,24 +137,3 @@ See `requirements.txt` for complete list.
 | `/admin` | GET | Admin panel |
 | `/admin/programs` | GET, POST | Manage programs |
 
-## 🤝 Contributing
-
-We welcome contributions! To contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 💬 Support & Feedback
-
-Have questions or feedback? Please reach out or open an issue in the repository.
-
----
-
-**Made with ❤️ for She Can Foundation** | Empowering Women, Transforming Communities
